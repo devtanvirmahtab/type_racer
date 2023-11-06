@@ -16,8 +16,8 @@
     "mongoose": "^8.0.0",
     "socket.io": "^2.3.0"
   },
-  "description": "",
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "description": ""
 }
