@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 // import 'package:type_racer/utils/socket_client.dart';
 // import 'package:type_racer/utils/socket_method.dart';
@@ -31,20 +33,22 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
     // TODO: implement initState
     super.initState();
 
-    socket = IO.io(
-      'http://192.168.0.104:3000',
-      {
-        'transports': ['websocket'],
-        'force new connection': true,
-      },
-    );
+    socket = IO.io('http://192.168.0.100:3000');
+    socket.onConnect((_) {
+      print('connect');
+      socket.emit('msg', 'test');
+    });
+    socket.on('event', (data) => print(data));
+    socket.on('fromServer', (_) => print(_));
+    socket.onError((data) {
+      print('error');
+      print(data);
+    });
 
-    socket.connect();
-
-    socket.emit(
-      "test",
-      {"connect": "OK"},
-    );
+    // socket.emit(
+    //   "test",
+    //   {"connect": "OK"},
+    // );
 
     // IO.Socket? socket;
 
