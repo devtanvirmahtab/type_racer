@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:type_racer/utils/socket_client.dart';
 // import 'package:type_racer/utils/socket_client.dart';
 // import 'package:type_racer/utils/socket_method.dart';
 import 'package:type_racer/widgets/custom_button.dart';
 import 'package:type_racer/widgets/custom_text_field.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../utils/socket_method.dart';
 
 class CreateRoomScreen extends StatefulWidget {
   const CreateRoomScreen({super.key});
@@ -16,10 +19,15 @@ class CreateRoomScreen extends StatefulWidget {
 
 class _CreateRoomScreenState extends State<CreateRoomScreen> {
   final TextEditingController _nameController = TextEditingController();
-  // final SocketMethod _socketMethod = SocketMethod();
+  // final SocketClient _socketClient = SocketClient.instance;
+  final SocketMethod _socketMethod = SocketMethod();
 
   // final TextEditingController _nameController = TextEditingController();
-  late final IO.Socket socket;
+  // late final IO.Socket socket;
+
+  // testing(){
+  //   _socketClient.socket!.emit("test", 'this is working');
+  // }
 
   @override
   void dispose() {
@@ -31,19 +39,19 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-
-    socket = IO.io('http://192.168.0.100:3000');
-    socket.onConnect((_) {
-      print('connect');
-      socket.emit('msg', 'test');
-    });
-    socket.on('event', (data) => print(data));
-    socket.on('fromServer', (_) => print(_));
-    socket.onError((data) {
-      print('error');
-      print(data);
-    });
+    // super.initState();
+    //
+    // socket = IO.io('http://192.168.0.100:3000');
+    // socket.onConnect((_) {
+    //   print('connect');
+    //   socket.emit('msg', 'test');
+    // });
+    // socket.on('event', (data) => print(data));
+    // socket.on('fromServer', (_) => print(_));
+    // socket.onError((data) {
+    //   print('error');
+    //   print(data);
+    // });
 
     // socket.emit(
     //   "test",
@@ -99,10 +107,13 @@ class _CreateRoomScreenState extends State<CreateRoomScreen> {
                   text: "Create",
                   onTap: () {
                     print("create ");
-                    socket.emit(
-                      "test",
-                      "socket test is working ",
-                    );
+                    // socket.emit(
+                    //   "test",
+                    //   "socket test is working ",
+                    // );
+
+                    // testing();
+                    _socketMethod.createGame(_nameController.text);
                   },
 
                   // () =>_socketMethod.createGame(_nameController.text.toString()),
