@@ -14,7 +14,7 @@ var io = require('socket.io')(server);
 app.use(express.json());
 
 //connect to mongoDB
-const DB = "mongodb+srv://jvjhtm14:jvjhtm14@cluster0.fn2r9vj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const DB = "";
 
 mongoose.connect(DB)
   .then(() => {
